@@ -1,3 +1,5 @@
+This is a Fork of SCADASIM which is configured for python3.8 and other latest versions of python.
+
 SCADA Simulator
 
 Copyright 2018 Carnegie Mellon University. All Rights Reserved.
