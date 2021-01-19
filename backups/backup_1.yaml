@@ -1,0 +1,17 @@
+DATASTORE:
+  co:
+    start_addr: 1
+    values:
+    - 0
+  di:
+    start_addr: 1
+    values:
+    - 0
+  hr:
+    start_addr: 1
+    values:
+    - 90
+  ir:
+    start_addr: 1
+    values:
+    - 0

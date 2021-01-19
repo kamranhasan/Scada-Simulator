@@ -34,19 +34,19 @@ import yaml, sys
 '''
 def linear_behavior_setup():
     dict = {}
-    dict['variance'] = int(raw_input("Variance of linear function:\n"))
-    dict['address'] = raw_input("Starting address for register(s) to control:\n")
-    dict['time'] = int(raw_input("Frequency to update register values (in seconds):\n"))
-    dict['count'] = int(raw_input("Number of registers to control:\n"))
+    dict['variance'] = int(input("Variance of linear function:\n"))
+    dict['address'] = input("Starting address for register(s) to control:\n")
+    dict['time'] = int(input("Frequency to update register values (in seconds):\n"))
+    dict['count'] = int(input("Number of registers to control:\n"))
     return dict
 
 
 def linear_coil_dependent_setup():
     dict = {}
     dict = linear_behavior_setup()
-    dict['max'] = int(raw_input("Max value of the register(s):\n"))
-    dict['coil_address'] = int(raw_input("Address of the coil it is dependent on:\n"))
-    dict['default_coil_value'] = int(raw_input("Default coil value - default state that would mean normal behavior:\n"))
+    dict['max'] = int(input("Max value of the register(s):\n"))
+    dict['coil_address'] = int(input("Address of the coil it is dependent on:\n"))
+    dict['default_coil_value'] = int(input("Default coil value - default state that would mean normal behavior:\n"))
     return dict
 
 '''
@@ -54,19 +54,19 @@ def linear_coil_dependent_setup():
 '''
 def random_behavior_setup():
     dict = {}
-    dict['min'] = int(raw_input("Minimum value the register can hold:\n"))
-    dict['max'] = int(raw_input("Maximum value the register can hold:\n"))
-    dict['address'] = raw_input("Starting address for register(s) to control:\n")
-    dict['time'] = int(raw_input("Frequency to update register values (in seconds):\n"))
-    dict['count'] = int(raw_input("Number of registers to control:\n"))
+    dict['min'] = int(input("Minimum value the register can hold:\n"))
+    dict['max'] = int(input("Maximum value the register can hold:\n"))
+    dict['address'] = input("Starting address for register(s) to control:\n")
+    dict['time'] = int(input("Frequency to update register values (in seconds):\n"))
+    dict['count'] = int(input("Number of registers to control:\n"))
     return dict
 
 def constant_behavior_setup():
     dict = {}
-    dict['num'] = int(raw_input("Value that the coil register should try to stay constant at:\n"))
-    dict['address'] = raw_input("Starting address for register(s) to control:\n")
-    dict['time'] = int(raw_input("Frequency to update register values (in seconds):\n"))
-    dict['count'] = int(raw_input("Number of registers to control:\n"))
+    dict['num'] = int(input("Value that the coil register should try to stay constant at:\n"))
+    dict['address'] = input("Starting address for register(s) to control:\n")
+    dict['time'] = int(input("Frequency to update register values (in seconds):\n"))
+    dict['count'] = int(input("Number of registers to control:\n"))
     return dict
 '''
 @brief obtain input to setup the datastore
@@ -75,14 +75,14 @@ def datastore_setup():
     datastore_dict = {'hr': {'start_addr': 1, 'values': [1, 2, 3]}, 'ir': {'start_addr': 1, 'values': [4, 4, 4]}, 'co': {'start_addr': 1, 'values': [0, 0, 0]}, 'di': {'start_addr': 1, 'values': [100, 250, 0]}}
     print("\n\nConfiguring Datastore\n")
     # holding reg setup
-    start_addr = int(raw_input("Start addr for hr?\n"))
-    values = raw_input("Initial values for hr?\n").split()
+    start_addr = int(input("Start addr for hr?\n"))
+    values = input("Initial values for hr?\n").split()
     values = map(int, values)
     datastore_dict['hr']['start_addr'] = start_addr
     datastore_dict['hr']['values'] = values
-    for i in range(len(values)):
+    for i in range(len(list(values))):
         datastore_dict['hr']['behavior_' + str(i+1)] = {}
-        cur_behavior = raw_input("Linear, linear_coil_dependent, or random behavior?\n")
+        cur_behavior = input("Linear, linear_coil_dependent, or random behavior?\n")
         datastore_dict['hr']['behavior_' + str(i+1)]['type'] = cur_behavior
         if cur_behavior == "linear":
             behavior_sub_dict = linear_behavior_setup()
@@ -93,29 +93,29 @@ def datastore_setup():
         datastore_dict['hr']['behavior_' + str(i+1)].update(behavior_sub_dict)
 
     # input reg setup
-    start_addr = int(raw_input("Start addr for ir?\n"))
-    values = raw_input("Initial values for ir?\n").split()
+    start_addr = int(input("Start addr for ir?\n"))
+    values = input("Initial values for ir?\n").split()
     values = map(int, values)
     datastore_dict['ir']['start_addr'] = start_addr
     datastore_dict['ir']['values'] = values
 
     # coil reg setup
-    start_addr = int(raw_input("Start addr for co?\n"))
-    values = raw_input("Initial values for co?\n").split()
+    start_addr = int(input("Start addr for co?\n"))
+    values = input("Initial values for co?\n").split()
     values = map(int, values)
     datastore_dict['co']['start_addr'] = start_addr
     datastore_dict['co']['values'] = values
-    for i in range(len(values)):
+    for i in range(len(list(values))):
         datastore_dict['co']['behavior_' + str(i+1)] = {}
-        cur_behavior = raw_input("constant or none behavior?\n")
+        cur_behavior = input("constant or none behavior?\n")
         datastore_dict['co']['behavior_' + str(i+1)]['type'] = cur_behavior
         if cur_behavior == "constant":
             behavior_sub_dict = constant_behavior_setup()
             datastore_dict['co']['behavior_' + str(i+1)].update(behavior_sub_dict)
 
     # di reg setup
-    start_addr = int(raw_input("Start addr for di?\n"))
-    values = raw_input("Initial values for di?\n").split()
+    start_addr = int(input("Start addr for di?\n"))
+    values = input("Initial values for di?\n").split()
     values = map(int, values)
     datastore_dict['di']['start_addr'] = start_addr
     datastore_dict['di']['values'] = values
@@ -128,9 +128,9 @@ def logging_setup():
     logging_dict = {'logging_level': 'DEBUG', 'file': 'STDOUT', 'format': '%(asctime)-15s %(threadName)-15s %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s'}
     def_format = '%(asctime)-15s %(threadName)-15s %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s'
     print("\n\nConfiguring Logging\n")
-    logging_dict['logging_level'] = raw_input("Enter logging level (CRITICAL, ERROR, WARNING, INFO, DEBUG, or NOTSET) :\n")
-    logging_dict['file'] = raw_input("Enter STDOUT or valid filepath for logging destination:\n")
-    logging_dict['format'] = raw_input("Enter NONE, DEFAULT (for '%(asctime)-15s %(threadName)-15s %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s'), or a valid format string:\n")
+    logging_dict['logging_level'] = input("Enter logging level (CRITICAL, ERROR, WARNING, INFO, DEBUG, or NOTSET) :\n")
+    logging_dict['file'] = input("Enter STDOUT or valid filepath for logging destination:\n")
+    logging_dict['format'] = input("Enter NONE, DEFAULT (for '%(asctime)-15s %(threadName)-15s %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s'), or a valid format string:\n")
     if logging_dict['format'] == 'DEFAULT':
         logging_dict['format'] = def_format
     return logging_dict
@@ -141,10 +141,10 @@ def logging_setup():
 def server_setup():
     server_dict = {'framer': 'RTU', 'type': 'serial', 'port': '/dev/ttyS1'}
     print("\n\nConfiguring Server\n")
-    server_dict['type'] = raw_input("Enter type of PyModbus server (tcp, serial, etc):\n")
-    server_dict['framer'] = raw_input("Enter type of framer (TCP, RTU, ASCII, etc):\n")
-    server_dict['port'] = raw_input("Enter port used for server:\n")
-    server_dict['address'] = raw_input("Enter address used for server (NONE if using serial server):\n")
+    server_dict['type'] = input("Enter type of PyModbus server (tcp, serial, etc):\n")
+    server_dict['framer'] = input("Enter type of framer (TCP, RTU, ASCII, etc):\n")
+    server_dict['port'] = input("Enter port used for server:\n")
+    server_dict['address'] = input("Enter address used for server (NONE if using serial server):\n")
     return server_dict
 
 '''
@@ -167,7 +167,7 @@ def main():
     config_dict = {'MASTER': {'num_of_PLC': 1}}
     num_devices = input("How many PLC devices? ")
     config_dict['MASTER']['num_of_PLC'] = int(num_devices)
-    output_filename = raw_input("Enter the full path of the file the config should yaml.dump to OR enter 'DEFAULT': ")
+    output_filename = input("Enter the full path of the file the config should yaml.dump to OR enter 'DEFAULT': ")
     if output_filename == "DEFAULT":
         dump_filename = '/usr/local/bin/scadasim_pymodbus_plc/configs/test_generator_dump.yaml'
     else:
@@ -179,7 +179,7 @@ def main():
         print("\n\nConfiguring PLC " + str(i))
         config_dict["PLC " + str(i)] = plc_setup()
     print(config_dict)
-    stream = open(dump_filename, 'w+')
+    stream = open(dump_filename, 'w')
     yaml.dump(config_dict, stream)
     stream.close()
 

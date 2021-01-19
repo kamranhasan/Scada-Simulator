@@ -34,7 +34,7 @@ from os import path
 # (Default) open txt file to get config.yaml file name IF path of config file was not supplied as argument to master.py
 # strip any trailing /n from string
 if len(sys.argv) == 1:
-    f = open("/usr/local/bin/scadasim_pymodbus_plc/startup/config_file_name.txt", 'r')
+    f = open("/home/hp/Desktop/SCADASim/startup/config_file_name.txt", 'r')
     file_name = f.read()
     file_name = file_name.rstrip()
     f.close()
@@ -54,7 +54,7 @@ while(i < num_of_plc):
     num = str(i)
     plc_device_name = 'PLC ' + num
     # keep in the src repo, in format of "backup_N.yaml", where N is the ID of the PLC device
-    backup_file_name = '/usr/local/bin/scadasim_pymodbus_plc/backups/backup_' + num + '.yaml'
+    backup_file_name = '/home/hp/Desktop/SCADASim/backups/backup_' + num + '.yaml'
     
     # collect num of register/coils for each plc device
     hr_values = config_yaml[plc_device_name]['DATASTORE']['hr']['values']
@@ -73,5 +73,5 @@ while(i < num_of_plc):
     i = i + 1
 
 # return number of backup files created and the config filepath to bash startup script
-print str(num_of_plc) + ' ' + file_name
+print(str(num_of_plc) + ' ' + file_name)
 

@@ -30,15 +30,15 @@
 # Check whether the template variable is used or not
 # template_var would contain the full path of the config file to use
 # If used, run master.py with the path supplied as an argument
-TEMPLATE_VAR="$(vmtoolsd --cmd 'info-get guestinfo.template_variable')"
+TEMPLATE_VAR="/home/hp/Desktop/SCADASim/configs/test_config.yaml"
 if [ "$TEMPLATE_VAR" = "" ]; then
     echo "No template variable found on the vmx file. Using hard-coded value"
     # load in data from master.py using hard-coded config textfile
-    result=$(python /usr/local/bin/scadasim_pymodbus_plc/startup/master.py)
+    result=$(python3.7 /home/hp/Desktop/SCADASim/startup/master.py)
 else
     # load in data from master.py using template_var as config textfile
     echo "Using template_var from vmx file"
-    result=$(python /usr/local/bin/scadasim_pymodbus_plc/startup/master.py $TEMPLATE_VAR)
+    result=$(python3.7 /home/hp/Desktop/SCADASim/startup/master.py $TEMPLATE_VAR)
 fi
 
 # master.py will return the number of plc devices for this schema, and the path of the config file
@@ -56,10 +56,10 @@ name_of_config=${results[1]}
 for (( c=$START; c<$END; c++ ))
 do
         echo "Running async_plc.py with arg $c"
-	python /usr/local/bin/scadasim_pymodbus_plc/plc/async_plc.py --n $c --c $name_of_config &	
+	python3 /home/hp/Desktop/SCADASim/plc/async_plc.py --n $c --c $name_of_config &	
 done
 
 # keep script alive so that async_plc programs continue to run
-while true; do
-    echo
-done
+# while true; do
+#     echo
+# done

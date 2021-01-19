@@ -1,1 +1,1 @@
-/usr/local/bin/scadasim_pymodbus_plc/configs/test_config.yaml
+/home/hp/Desktop/SCADASim/configs/test_config.yaml
